@@ -1,6 +1,7 @@
 package com.devEx.stepDef;
 
 import com.devEx.common.DataForApi;
+import com.devEx.pages.LoginPage;
 import com.devEx.request.DevExRequest;
 import com.devEx.utilities.ConfigurationReader;
 import io.cucumber.java.en.And;
@@ -16,6 +17,8 @@ public class SignUpStepDef {
 
     Response response;
     String token;
+    int id;
+
     @Given("User creates a POST request with {string} and {string} and {string} and {string} and {string} and {string}")
     public void userCreatesAPOSTRequestWithAndAndAndAndAnd(String email, String password, String name, String google, String facebook, String github) {
 
@@ -67,6 +70,43 @@ public class SignUpStepDef {
     @Given("User creates a POST request for add an experiences with {string} {string} {string}  {string} {string} {string} {string}")
     public void userCreatesAPOSTRequestForAddAnExperiencesWith(String title,String company,String location,String from,String to,String current,String description) {
 
+        response=DevExRequest.postExperiences(title, company, location, from, to, current, description);
 
+
+    }
+
+    @And("Compiler gets the experience id")
+    public void compilerGetsTheExperienceId() {
+
+        id= response.path("experience.id[0]");
+    }
+
+    @And("User creates GET request to get experience with using Id")
+    public void userCreatesGETRequestToGetExperienceWithUsingId() {
+        response=DevExRequest.getExperience(id);
+
+
+    }
+
+    @And("User is on the Dashboard page")
+    public void userIsOnTheDashboardPage() throws InterruptedException {
+
+        new LoginPage().setup();
+
+    }
+
+
+
+    @Then("Verify that UI experience and API experience must be match company is {string}")
+    public void verifyThatUIExperienceAndAPIExperienceMustBeMatchCompanyIs(String expectedCompany) {
+
+        //from UI
+        String actualCompanyFromUI = new LoginPage().getNewCompany(expectedCompany);
+
+        //from API
+        String actualCompanyFromAPI = response.path("company");
+
+        //Compare
+        assertEquals(actualCompanyFromAPI,actualCompanyFromUI);
     }
 }

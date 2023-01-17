@@ -72,4 +72,17 @@ public class DevExRequest {
         return response;
 
     }
+    public static Response getExperience(int id){
+        response = given().accept(ContentType.JSON)
+                .and()
+                .contentType(ContentType.JSON)
+                .headers(ApiUtils.getAccessToken(ConfigurationReader.get("email"),ConfigurationReader.get("password")))
+                .and()
+                .pathParam("id",id)
+                .and()
+                .get(ConfigurationReader.get("getExperienceWithId"));
+
+        response.prettyPrint();
+        return response;
+    }
 }
