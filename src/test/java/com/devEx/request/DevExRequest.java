@@ -39,4 +39,19 @@ public class DevExRequest {
 
         return response;
     }
+
+    public static Response postSaveProfile(String company,String website,String location,String status,String skills,String githubUsername,String youtube,String twitter,String facebook,String linkedin,String instagram){
+
+        response = given().accept(ContentType.JSON)
+                .and()
+                .contentType(ContentType.JSON)
+                .header("x-auth-token",ConfigurationReader.get("newUserToken"))
+                .and()
+                .body(DataForApi.saveProfileBody(company, website, location, status, skills, githubUsername, youtube, twitter, facebook, linkedin, instagram))
+                .when()
+                .post(ConfigurationReader.get("postSaveProfile"));
+
+        response.prettyPrint();
+        return response;
+    }
 }

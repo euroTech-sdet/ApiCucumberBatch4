@@ -2,6 +2,7 @@ package com.devEx.stepDef;
 
 import com.devEx.request.DevExRequest;
 import com.devEx.utilities.ConfigurationReader;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.restassured.http.ContentType;
@@ -57,6 +58,7 @@ public class ProfileStepDef {
 
 
     }
+
 
 
 }
