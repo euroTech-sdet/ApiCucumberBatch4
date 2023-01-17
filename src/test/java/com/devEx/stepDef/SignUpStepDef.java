@@ -63,4 +63,10 @@ public class SignUpStepDef {
         assertEquals(expectedEmail,response.path("user.email"));
 
     }
+
+    @Given("User creates a POST request for add an experiences with {string} {string} {string}  {string} {string} {string} {string}")
+    public void userCreatesAPOSTRequestForAddAnExperiencesWith(String title,String company,String location,String from,String to,String current,String description) {
+
+
+    }
 }

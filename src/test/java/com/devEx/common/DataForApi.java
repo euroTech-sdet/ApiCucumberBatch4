@@ -53,4 +53,28 @@ public class DataForApi {
 
         return profileBody;
     }
+    /*
+    {
+  "title": "string",
+  "company": "string",
+  "location": "string",
+  "from": "YYYY-MM-DD",
+  "to": "YYYY-MM-DD",
+  "current": false,
+  "description": "string"
+}
+     */
+
+    public static Map<String,Object> experiencesBody(String title,String company,String location,String from,String to,String current,String description){
+        Map<String,Object> experiences = new HashMap<>();
+        experiences.put("title",title);
+        experiences.put("company",company);
+        experiences.put("location",location);
+        experiences.put("from",from);
+        experiences.put("to",to);
+        experiences.put("current",current);
+        experiences.put("description",description);
+
+        return experiences;
+    }
 }

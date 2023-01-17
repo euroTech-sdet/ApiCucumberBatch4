@@ -1,6 +1,7 @@
 package com.devEx.request;
 
 import com.devEx.common.DataForApi;
+import com.devEx.utilities.ApiUtils;
 import com.devEx.utilities.ConfigurationReader;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -53,5 +54,22 @@ public class DevExRequest {
 
         response.prettyPrint();
         return response;
+    }
+
+    public static Response postExperiences(String title,String company,String location,String from,String to,String current,String description){
+
+        response=given().contentType(ContentType.JSON)
+                .and()
+                .contentType(ContentType.JSON)
+                .and()
+                .headers(ApiUtils.getAccessToken(ConfigurationReader.get("email"),ConfigurationReader.get("password")))
+                .and()
+                .body(DataForApi.experiencesBody(title, company, location, from, to, current, description))
+                .when()
+                .post(ConfigurationReader.get("postExperiences"));
+        response.prettyPrint();
+
+        return response;
+
     }
 }
